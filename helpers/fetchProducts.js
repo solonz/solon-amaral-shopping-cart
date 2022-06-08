@@ -5,12 +5,12 @@ async function fetchProducts(produto) {
   const ENDPOINT = `https://api.mercadolibre.com/sites/MLB/search?q=${produto}`;
 
   const response = await fetch(ENDPOINT);
-  const data = await response.json();
-  return data;
+  const results = await response.json();
+  return results;
 }
 
 if (typeof module !== 'undefined') {
   module.exports = {
     fetchProducts,
   };
-}
+} 

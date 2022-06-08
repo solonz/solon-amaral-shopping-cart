@@ -38,4 +38,30 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
   return li;
 };
 
-window.onload = () => { };
+const getProductsElements = async (product) => {
+  const { results } = await fetchProducts(product);
+  const products = results.map((produto) => ({
+    sku: produto.id,
+    name: produto.title,
+    image: produto.thumbnail,
+  }));
+  products.forEach((element) => document.querySelector('.items')
+  .appendChild(createProductItemElement(element)));
+};
+
+// ***OU***
+
+// const getProductsElements = async (product) => {
+//   const { results } = await fetchProducts(product);
+//   results.forEach((produto) => {
+//     const { id, title, thumbnail } = produto;
+//     const objeto = {
+//       sku: id,
+//       name: title,
+//       image: thumbnail,
+//     };
+//     document.querySelector('.items')
+//       .appendChild(createProductItemElement(objeto));
+//   });
+// };
+window.onload = getProductsElements('computador');

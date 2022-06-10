@@ -26,8 +26,15 @@ const createProductItemElement = ({ sku, name, image }) => {
 
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
-const cartItemClickListener = (event) => {
-  // coloque seu código aquii
+const cartItemClickListener = () => {
+  // const { results } = await fetchItem(productId);
+  // const products = results.map((element) => ({
+  //   sku: element.sku,
+  //   name: element.name,
+  //   salesPrice: element.price,
+  // }));
+  // products.forEach((product) => document.querySelector('.cart_items')
+  // .appendChild(createCartItemElement(product)));
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
@@ -35,7 +42,19 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
-  return li;
+  document.querySelector('ol.cart__items').appendChild(li);
+};
+
+const addButtonsListeners = () => {
+  const buttons = document.querySelectorAll('.item__add');
+  buttons.forEach((button) => {
+    button.addEventListener('click', async (event) => {
+      const productId = getSkuFromProductItem(event.target.parentNode);
+      const productIdData = await fetchItem(productId);
+      const { id, title, price } = productIdData;
+      createCartItemElement({ sku: id, name: title, salePrice: price });
+    });
+  });
 };
 
 const getProductsElements = async (product) => {
@@ -46,7 +65,8 @@ const getProductsElements = async (product) => {
     image: produto.thumbnail,
   }));
   products.forEach((element) => document.querySelector('.items')
-  .appendChild(createProductItemElement(element)));
+    .appendChild(createProductItemElement(element)));
+  addButtonsListeners();
 };
 
 // ***OU***
@@ -64,4 +84,4 @@ const getProductsElements = async (product) => {
 //       .appendChild(createProductItemElement(objeto));
 //   });
 // };
-window.onload = getProductsElements('computador');
+window.onload = getProductsElements('computador'); 

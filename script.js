@@ -26,15 +26,8 @@ const createProductItemElement = ({ sku, name, image }) => {
 
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
-const cartItemClickListener = () => {
-  // const { results } = await fetchItem(productId);
-  // const products = results.map((element) => ({
-  //   sku: element.sku,
-  //   name: element.name,
-  //   salesPrice: element.price,
-  // }));
-  // products.forEach((product) => document.querySelector('.cart_items')
-  // .appendChild(createCartItemElement(product)));
+const cartItemClickListener = (event) => {
+  event.target.remove();
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {

@@ -30,7 +30,7 @@ const cartItem = document.querySelector('.cart__items');
 
 const cartItemClickListener = (event) => {
   event.target.remove();
-  saveCartItems(cartItem.innerText);
+  saveCartItems(cartItem.innerHTML);
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
@@ -39,8 +39,9 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   document.querySelector('ol.cart__items').appendChild(li);
-  saveCartItems(cartItem.innerText);
+  saveCartItems(cartItem.innerHTML);
 };
+cartItem.addEventListener('click', cartItemClickListener);
 
 const addButtonsListeners = () => {
   const buttons = document.querySelectorAll('.item__add');
@@ -84,9 +85,9 @@ const getProductsElements = async (product) => {
 
 const itemsLocalStorage = () => {
   const itemsLS = getSavedCartItems();
-  cartItem.innerText = itemsLS;
-  const newItem = document.querySelectorAll('.cart__item');
-  newItem.forEach((item) => item.addEventListener('click', (event) => event.target.remove()));
+  cartItem.innerHTML = itemsLS;
+  // const newItem = document.querySelectorAll('.cart__item');
+  // newItem.forEach((item) => item.addEventListener('click', (event) => event.target.remove()));
 };
 
 const emptyCart = document.querySelector('.empty-cart');

@@ -30,7 +30,7 @@ const cartItem = document.querySelector('.cart__items');
 
 const cartItemClickListener = (event) => {
   event.target.remove();
-  saveCartItems(cartItem);
+  saveCartItems(cartItem.innerText);
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
@@ -85,9 +85,22 @@ const getProductsElements = async (product) => {
 const itemsLocalStorage = () => {
   const itemsLS = getSavedCartItems();
   cartItem.innerText = itemsLS;
-  const novaLi = document.querySelectorAll('.cart__item');
-  novaLi.forEach((item) => item.addEventListener('click', (event) => event.target.remove()));
+  const newItem = document.querySelectorAll('.cart__item');
+  newItem.forEach((item) => item.addEventListener('click', (event) => event.target.remove()));
 };
+
+const totalPrice = document.querySelector('.total-price');
+
+const sumCart = () => {
+};
+
+const emptyCart = document.querySelector('.empty-cart');
+
+const empty = () => {
+  cartItem.innerHTML = '';
+};
+
+emptyCart.addEventListener('click', empty);
 
 window.onload = () => {
   getProductsElements('computador');

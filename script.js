@@ -89,11 +89,6 @@ const itemsLocalStorage = () => {
   newItem.forEach((item) => item.addEventListener('click', (event) => event.target.remove()));
 };
 
-const totalPrice = document.querySelector('.total-price');
-
-const sumCart = () => {
-};
-
 const emptyCart = document.querySelector('.empty-cart');
 
 const empty = () => {
@@ -102,7 +97,22 @@ const empty = () => {
 
 emptyCart.addEventListener('click', empty);
 
-window.onload = () => {
-  getProductsElements('computador');
+const loadingMessage = document.querySelector('section.items');
+
+const loading = (status) => {
+  if (status) {
+    const element = document.createElement('div');
+    element.className = 'loading';
+    element.innerText = 'carregando...';
+    loadingMessage.appendChild(element);
+  } else {
+    document.querySelector('div.loading').remove();
+  }
+};
+
+window.onload = async () => {
+  loading(true);
+  await getProductsElements('computador');
+  loading(false);
   itemsLocalStorage();
 };
